@@ -1,0 +1,3 @@
+rootProject.name = 'Commerce'
+include 'user-api'
+
