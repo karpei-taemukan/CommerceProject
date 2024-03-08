@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -41,5 +42,28 @@ public class SignUpCustomerService {
             return customer.getVerifyExpiredAt();
         }
         throw new CustomException(ErrorCode.NOT_FOUND_USER);
+    }
+
+    //##########################################################################################
+
+    @Transactional
+    public void verifyEmail(String email, String code){
+        Customer customer = customerRepository.findByEmail(email)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        if (!Objects.equals(customer.getVerificationCode(), code)) {
+            throw new CustomException(ErrorCode.WRONG_VERIFICATION);
+        }
+
+        if(customer.isVerify()){
+            throw new CustomException(ErrorCode.ALREADY_VERIFY);
+        }
+
+        if (customer.getVerifyExpiredAt().isBefore(LocalDateTime.now())) {
+            throw new CustomException(ErrorCode.EXPIRE_CODE);
+        }
+
+        customer.setVerify(true);
+        customerRepository.save(customer);
     }
 }

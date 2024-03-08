@@ -6,7 +6,7 @@
   </component>
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -17,7 +17,10 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="9f8309ec-33d9-43b5-9e77-29f10e948024">
-      <console name="zero-base-cms-mysql" type="STANDARD" schema="" session="Main"><![CDATA[create database zeroorder;]]></console>
+      <console name="zero-base-cms-mysql" type="STANDARD" schema="" session="Main"><![CDATA[create database zeroorder;
+
+select * from zeroorder.customer;
+drop table zeroorder.customer;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -30,11 +33,14 @@
     <connection id="9f8309ec-33d9-43b5-9e77-29f10e948024" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="9f8309ec-33d9-43b5-9e77-29f10e948024" dataset="zeroorder.customer" active-filter-id="3e1a790b-2552-4068-930e-edb53584ea46">
+    <filter-actions connection-id="9f8309ec-33d9-43b5-9e77-29f10e948024" dataset="zeroorder.customer" active-filter-id="EMPTY_FILTER">
       <filter id="3e1a790b-2552-4068-930e-edb53584ea46" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="id" operator="=" value="" active="true" />
       </filter>
     </filter-actions>
+  </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />

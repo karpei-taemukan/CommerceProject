@@ -30,15 +30,17 @@ public class SignUpApplication {
         }else{
             Customer customer = service.signUp(form);
 
+            String code = getRandomCode();
+
             SendMailForm verificationEmail = SendMailForm.builder()
                     .from("zerobase-test@email.com")
                     .to(form.getEmail())
                     .subject("Verification Email")
-                    .text(getVerificationEmailBody(form.getEmail(), form.getName(), getRandomCode()))
+                    .text(getVerificationEmailBody(form.getEmail(), form.getName(), code))
                     .build();
             mailgunClient.sendEmail(verificationEmail);
-            log.info("Send Email reslut: "+mailgunClient.sendEmail(verificationEmail).getBody());
-            service.ChangeCustomerValidateEmail(customer.getId(), getRandomCode());
+            //log.info("Send Email reslut: "+mailgunClient.sendEmail(verificationEmail).getBody());
+            service.ChangeCustomerValidateEmail(customer.getId(), code);
             return "회원 가입에 성공";
         }
     }
@@ -55,10 +57,17 @@ public class SignUpApplication {
 
     private String getVerificationEmailBody(String email, String name, String code){
         StringBuilder sb = new StringBuilder();
-        return sb.append("Hello ").append(name).append("! Please Click Link for verification. \n")
-                .append("http://localhost:8080/customer/verify?email=")
+        return sb.append("Hello ").append(name)
+                .append("! Please Click Link for verification. \n")
+                .append("http://localhost:8080/signup/verify/customer?email=")
                 .append(email)
                 .append("&code=")
                 .append(code).toString();
+    }
+
+    //##########################################################################################
+
+    public void customerVerify(String email, String code){
+        service.verifyEmail(email,code);
     }
 }
