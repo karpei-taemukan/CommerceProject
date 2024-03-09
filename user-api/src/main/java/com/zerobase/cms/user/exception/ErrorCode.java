@@ -1,4 +1,4 @@
-package com.zerobase.cms.user.excaption;
+package com.zerobase.cms.user.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
