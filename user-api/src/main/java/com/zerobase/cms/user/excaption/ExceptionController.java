@@ -1,5 +1,6 @@
 package com.zerobase.cms.user.excaption;
 
+import jakarta.servlet.ServletException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -15,6 +16,12 @@ public class ExceptionController {
     public ResponseEntity<ExceptionResponse> customRequestException(final CustomException e){
         log.warn("api Exception: "+e.getErrorCode());
         return ResponseEntity.badRequest().body(new ExceptionResponse(e.getMessage(), e.getErrorCode()));
+    }
+
+    @ExceptionHandler({ServletException.class})
+    public ResponseEntity<String> securityException(final CustomException e){
+        log.warn("api Exception: "+e.getErrorCode());
+        return ResponseEntity.badRequest().body("잘못된 인증 시도 입니다");
     }
 
 
