@@ -17,7 +17,10 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="9f8309ec-33d9-43b5-9e77-29f10e948024">
-      <console name="zero-base-cms-mysql" type="STANDARD" schema="" session="Main"><![CDATA[create database zeroorder;
+      <console name="zero-base-cms-mysql" type="STANDARD" schema="" session="Main"><![CDATA[create database user;
+create database orders;
+
+drop database zeroorder;
 
 select * from zeroorder.customer;
 
@@ -32,9 +35,7 @@ drop table zeroorder.seller;]]></console>
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="9f8309ec-33d9-43b5-9e77-29f10e948024" object-ref="consoles/zero-base-cms-mysql" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="9f8309ec-33d9-43b5-9e77-29f10e948024" />
