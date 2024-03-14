@@ -1,7 +1,6 @@
 package com.zerobase.cms.order.controller;
 
 import com.zerobase.cms.order.domain.model.ProductDto;
-import com.zerobase.cms.order.domain.model.ProductItem;
 import com.zerobase.cms.order.domain.model.ProductItemDto;
 import com.zerobase.cms.order.domain.product.AddProductForm;
 import com.zerobase.cms.order.domain.product.AddProductItemForm;
@@ -41,6 +40,8 @@ public class SellerProductController {
     return ResponseEntity.ok(ProductDto.from(
             productItemService.addProductItem(provider.getUserVo(token).getId(), form)));
     }
+
+    //###########################################################################################################
     @PutMapping
     public ResponseEntity<ProductDto> updateProduct(
             @RequestHeader(name = "X-AUTH-TOKEN") String token,
@@ -59,4 +60,24 @@ public class SellerProductController {
         return ResponseEntity.ok(ProductItemDto.from(
                 productItemService.updateProductItem(provider.getUserVo(token).getId(), form)));
     }
+//###########################################################################################################
+    @DeleteMapping
+    public ResponseEntity<Void> deleteProduct(
+            @RequestHeader(name = "X-AUTH-TOKEN") String token,
+            @RequestParam(name = "id") Long id
+    ){
+        productService.deleteProduct(provider.getUserVo(token).getId(), id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/item")
+    public ResponseEntity<Void> deleteProductItem(
+            @RequestHeader(name = "X-AUTH-TOKEN") String token,
+            @RequestParam(name = "id") Long id
+    ){
+
+        productItemService.deleteProductItem(provider.getUserVo(token).getId(), id);
+        return ResponseEntity.ok().build();
+    }
+
 }
