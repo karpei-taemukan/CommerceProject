@@ -1,6 +1,6 @@
 package com.zerobase.cms.user.client.service.customer;
 
-import com.zerobase.cms.user.domain.model.Customer;
+import com.zerobase.cms.user.domain.Customer;
 import com.zerobase.cms.user.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

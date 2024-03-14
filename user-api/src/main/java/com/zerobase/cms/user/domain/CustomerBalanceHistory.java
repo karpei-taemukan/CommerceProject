@@ -1,4 +1,4 @@
-package com.zerobase.cms.user.domain.model;
+package com.zerobase.cms.user.domain;
 
 import jakarta.persistence.*;
 import lombok.*;

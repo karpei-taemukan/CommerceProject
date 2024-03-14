@@ -1,7 +1,7 @@
 package com.zerobase.cms.user.client.service.customer;
 
 import com.zerobase.cms.user.domain.customer.ChangeBalanceForm;
-import com.zerobase.cms.user.domain.model.CustomerBalanceHistory;
+import com.zerobase.cms.user.domain.CustomerBalanceHistory;
 import com.zerobase.cms.user.exception.CustomException;
 import com.zerobase.cms.user.exception.ErrorCode;
 import com.zerobase.cms.user.repository.CustomerBalanceHistoryRepository;
@@ -9,8 +9,6 @@ import com.zerobase.cms.user.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

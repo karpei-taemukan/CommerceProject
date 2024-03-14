@@ -1,6 +1,5 @@
-package com.zerobase.cms.user.domain.model;
+package com.zerobase.cms.user.domain;
 
-import com.zerobase.cms.user.domain.SignUpForm;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.envers.AuditOverride;
@@ -16,7 +15,10 @@ import java.util.Locale;
 @AllArgsConstructor
 @Builder
 @AuditOverride(forClass = BaseEntity.class)
-public class Seller extends BaseEntity{
+// Customer 클래스가 업데이트될때마다
+// 자동으로 BaseEntity 클래스의
+// createdAt, modifiedAt 업데이트
+public class Customer extends BaseEntity{
     @Id
     @Column(name = "id",nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,8 +35,11 @@ public class Seller extends BaseEntity{
     private String verificationCode;
     private boolean verify;
 
-    public static Seller from(SignUpForm signUpForm){
-        return Seller.builder()
+    @Column(columnDefinition = "int default 0")
+    private Integer balance;
+
+    public static Customer from(SignUpForm signUpForm){
+        return Customer.builder()
                 .email(signUpForm.getEmail().toLowerCase(Locale.ROOT))
                 .password(signUpForm.getPassword())
                 .birth(signUpForm.getBirth())

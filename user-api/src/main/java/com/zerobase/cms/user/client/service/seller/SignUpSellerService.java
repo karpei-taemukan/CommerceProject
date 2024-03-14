@@ -1,7 +1,7 @@
 package com.zerobase.cms.user.client.service.seller;
 
 import com.zerobase.cms.user.domain.SignUpForm;
-import com.zerobase.cms.user.domain.model.Seller;
+import com.zerobase.cms.user.domain.Seller;
 import com.zerobase.cms.user.exception.CustomException;
 import com.zerobase.cms.user.exception.ErrorCode;
 import com.zerobase.cms.user.repository.SellerRepository;

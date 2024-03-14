@@ -1,6 +1,6 @@
 package com.zerobase.cms.user.domain.customer;
 
-import com.zerobase.cms.user.domain.model.Customer;
+import com.zerobase.cms.user.domain.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
