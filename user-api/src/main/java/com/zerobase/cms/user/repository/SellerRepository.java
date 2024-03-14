@@ -1,6 +1,6 @@
 package com.zerobase.cms.user.repository;
 
-import com.zerobase.cms.user.domain.model.Seller;
+import com.zerobase.cms.user.domain.Seller;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

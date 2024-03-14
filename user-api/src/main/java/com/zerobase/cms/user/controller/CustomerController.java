@@ -4,7 +4,7 @@ import com.zerobase.cms.user.client.service.customer.CustomerBalanceService;
 import com.zerobase.cms.user.client.service.customer.CustomerService;
 import com.zerobase.cms.user.domain.customer.ChangeBalanceForm;
 import com.zerobase.cms.user.domain.customer.CustomerDto;
-import com.zerobase.cms.user.domain.model.Customer;
+import com.zerobase.cms.user.domain.Customer;
 import com.zerobase.cms.user.exception.CustomException;
 import com.zerobase.cms.user.exception.ErrorCode;
 import com.zerobase.domain.config.JwtAuthenticationProvider;

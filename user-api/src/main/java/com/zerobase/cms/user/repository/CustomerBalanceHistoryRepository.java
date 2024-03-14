@@ -1,6 +1,6 @@
 package com.zerobase.cms.user.repository;
 
-import com.zerobase.cms.user.domain.model.CustomerBalanceHistory;
+import com.zerobase.cms.user.domain.CustomerBalanceHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.RequestParam;
 
