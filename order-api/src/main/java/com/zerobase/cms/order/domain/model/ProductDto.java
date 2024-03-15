@@ -27,4 +27,20 @@ public class ProductDto {
                 .items(items)
                 .build();
     }
+
+
+    // 검색을 할때 제품의 옵션까지 보여주면 성능이 떨어짐
+
+    public static ProductDto WithoutItemsfrom(Product product){
+        List<ProductItemDto> items = product.getProductItems()
+                .stream()
+                .map(ProductItemDto::from)
+                .toList();
+        return ProductDto.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .description(product.getDescription())
+                //.items(items)
+                .build();
+    }
 }
