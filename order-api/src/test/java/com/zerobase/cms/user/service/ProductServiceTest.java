@@ -6,14 +6,17 @@ import com.zerobase.cms.order.domain.product.AddProductForm;
 import com.zerobase.cms.order.domain.product.AddProductItemForm;
 import com.zerobase.cms.order.domain.repository.ProductRepository;
 import com.zerobase.cms.order.service.ProductService;
+import jakarta.persistence.EntityListeners;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
@@ -25,6 +28,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
 @ExtendWith(MockitoExtension.class)
 //@SpringBootTest(classes = ProductService.class)
 class ProductServiceTest {
@@ -82,10 +86,11 @@ class ProductServiceTest {
                 .build();
 
 
-        Product results = productService.addProduct(1L, form);
-        Product result = productRepository.findWithProductItemsById(product.getId()).get();
+        Product save = productService.addProduct(1L, form);
+        System.out.println("save: "+save);
+        Product result = productRepository.findWithProductItemsById(save.getId()).get();
+       // Product result = productRepository.findWithProductItemsById(product.getId()).get();
         //then
-        System.out.println(results);
         System.out.println("result: "
                 +"\nname: "+ result.getName() + " "
                 +"\nDescription: "+ result.getDescription()+ " "
@@ -97,8 +102,9 @@ class ProductServiceTest {
       assertEquals(result.getProductItems().size(), 3);
       assertEquals("NIKE", result.getName());
     }
+*/
 
-/*@SpringBootTest(classes = ProductService.class)
+@SpringBootTest(classes = ProductService.class)
 class ProductServiceTest {
 
     @Autowired
@@ -148,5 +154,5 @@ class ProductServiceTest {
                 .productId(productId)
                 .name(name)
                 .build();
-    }*/
+    }
 }
