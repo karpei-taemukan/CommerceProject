@@ -20,6 +20,9 @@ public class AddProductCartForm {
     private List<ProductItem> items;
 
     @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class ProductItem{
         private Long id;
         private String name;
