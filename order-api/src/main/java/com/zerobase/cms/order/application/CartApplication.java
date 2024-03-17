@@ -219,5 +219,13 @@ public class CartApplication {
     public void clearCart(Long customerId){
         cartService.putCart(customerId, null);
     }
+    // ##########################################################################################################
 
+    // 사용자 입장
+    // 장바구니 물건의 갯수를 수정한다거나
+    // 장바구니 물건 삭제
+    public Cart updateCart(Long customerId, Cart cart){
+        cartService.putCart(customerId, cart);
+        return getCart(customerId);
+    }
 }
