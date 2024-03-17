@@ -38,7 +38,9 @@ select * from orders.product;]]></console>
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="9f8309ec-33d9-43b5-9e77-29f10e948024" object-ref="consoles/zero-base-cms-mysql" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="9f8309ec-33d9-43b5-9e77-29f10e948024" />
