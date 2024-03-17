@@ -65,4 +65,13 @@ public class ProductItemService {
 
         productItemRepository.delete(productItem);
     }
+
+    // ###########################################################################################
+
+
+    @Transactional
+    public ProductItem getProductItem(Long id){
+        return productItemRepository.getReferenceById(id);
+    }
+
 }
