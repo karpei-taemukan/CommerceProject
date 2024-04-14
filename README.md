@@ -1,7 +1,7 @@
 ## 개요
 간단한 commerce project
 
-Use : Spring Boot, Jpa, MySql, Redis, Docker, AWS
+Use : Spring Boot, Jpa, MySql, Redis, Docker, Mailgun, AWS
 
 Goal : 판매자와 구매자 사이를 중계해 주는 commerce server 구축
 
@@ -31,3 +31,4 @@ Goal : 판매자와 구매자 사이를 중계해 주는 commerce server 구축
 - [ㅇ] 장바구니 확인
 - [ㅇ] 장바구니 변경
 - [ㅇ] 주문하기
+- [ㅇ] 주문내역 이메일 발송
