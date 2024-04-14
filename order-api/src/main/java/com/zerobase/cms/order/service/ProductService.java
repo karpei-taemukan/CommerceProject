@@ -1,23 +1,17 @@
 package com.zerobase.cms.order.service;
 
+import com.zerobase.cms.order.domain.model.Product;
 import com.zerobase.cms.order.domain.model.ProductItem;
 import com.zerobase.cms.order.domain.product.AddProductForm;
-import com.zerobase.cms.order.domain.model.Product;
-import com.zerobase.cms.order.domain.product.AddProductItemForm;
 import com.zerobase.cms.order.domain.product.UpdateProductForm;
 import com.zerobase.cms.order.domain.product.UpdateProductItemForm;
 import com.zerobase.cms.order.domain.repository.ProductItemRepository;
 import com.zerobase.cms.order.domain.repository.ProductRepository;
 import com.zerobase.cms.order.exception.CustomException;
 import com.zerobase.cms.order.exception.ErrorCode;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -25,18 +19,16 @@ import java.util.Optional;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final ProductItemRepository productItemRepository;
+
 
     @Transactional
-    public Product addProduct(Long sellerId, AddProductForm addProductForm){
-       // System.out.println("sellerID: "+sellerId);
-      //  System.out.println("form: "+addProductForm.getName());
-      //  System.out.println(productRepository.save(Product.of(sellerId, addProductForm)));
+    public Product addProduct(Long sellerId, AddProductForm addProductForm) {
+        // System.out.println("sellerID: "+sellerId);
+          System.out.println("form: "+addProductForm.getName());
+          System.out.println(addProductForm.getItems().getFirst().getName());
+          System.out.println("of: "+Product.of(sellerId, addProductForm));
 
-
-        Product save = productRepository.save(Product.of(sellerId, addProductForm));
-        System.out.println("save: "+save);
-        return save;
+        return productRepository.save(Product.of(sellerId, addProductForm));
     }
 
     // ###########################################################################################
@@ -45,7 +37,7 @@ public class ProductService {
     public Product updateProduct(
             Long sellerId,
             UpdateProductForm form
-    ){
+    ) {
         Product product = productRepository.findBySellerIdAndId(sellerId, form.getId())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_PRODUCT));
 
@@ -53,11 +45,11 @@ public class ProductService {
         product.setDescription(form.getDescription());
 
         // 옵션이 변한것들을 한번에 처리
-        for(UpdateProductItemForm itemForm : form.getItems()){
+        for (UpdateProductItemForm itemForm : form.getItems()) {
             ProductItem item = product.getProductItems().stream()
                     .filter(pi -> pi.getId().equals(itemForm.getId()))
                     .findFirst()
-                    .orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_ITEM));
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ITEM));
 
             item.setName(itemForm.getName());
             item.setPrice(itemForm.getPrice());
@@ -73,9 +65,9 @@ public class ProductService {
     public void deleteProduct(
             Long sellerId,
             Long productId
-    ){
+    ) {
         Product product = productRepository.findBySellerIdAndId(sellerId, productId)
-                .orElseThrow(()->new CustomException(ErrorCode.NOT_FOUND_PRODUCT));
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_PRODUCT));
 
         productRepository.delete(product);
     }

@@ -75,7 +75,6 @@ public class SellerProductController {
             @RequestHeader(name = "X-AUTH-TOKEN") String token,
             @RequestParam(name = "id") Long id
     ){
-
         productItemService.deleteProductItem(provider.getUserVo(token).getId(), id);
         return ResponseEntity.ok().build();
     }
