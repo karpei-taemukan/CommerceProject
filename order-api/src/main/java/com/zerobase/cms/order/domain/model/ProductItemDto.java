@@ -21,4 +21,13 @@ public class ProductItemDto {
                 .count(item.getCount())
                 .build();
     }
+
+    public static ProductItemDto getItemInfo(ProductItem item){
+        return ProductItemDto.builder()
+                .id(item.getId())
+                .name(item.getName())
+                .price(item.getPrice())
+                .count(item.getCount())
+                .build();
+    }
 }

@@ -30,7 +30,6 @@ drop table user.customer;
 
 drop table user.seller;
 
-
 select * from orders.product;]]></console>
     </connection>
   </component>
@@ -53,6 +52,7 @@ select * from orders.product;]]></console>
     <filter-actions connection-id="9f8309ec-33d9-43b5-9e77-29f10e948024" dataset="orders.product_product_item_aud" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="9f8309ec-33d9-43b5-9e77-29f10e948024" dataset="orders.product_item" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="9f8309ec-33d9-43b5-9e77-29f10e948024" dataset="orders.product_item_aud" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="9f8309ec-33d9-43b5-9e77-29f10e948024" dataset="user.store" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="9f8309ec-33d9-43b5-9e77-29f10e948024" dataset="zeroorder.seller" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="9f8309ec-33d9-43b5-9e77-29f10e948024" dataset="orders.product" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="9f8309ec-33d9-43b5-9e77-29f10e948024" dataset="orders.product_aud" active-filter-id="EMPTY_FILTER" />

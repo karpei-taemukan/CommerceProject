@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Audited
 @AuditOverride(forClass = BaseEntity.class)
-
 // 실시간으로 바뀌는 내용들을 엔티디에 실시간으로 저장
 public class Product extends BaseEntity {
     @Id

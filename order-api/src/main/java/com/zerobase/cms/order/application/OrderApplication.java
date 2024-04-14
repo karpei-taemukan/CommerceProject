@@ -1,18 +1,22 @@
 package com.zerobase.cms.order.application;
 
+import com.zerobase.cms.order.client.MailgunClient;
 import com.zerobase.cms.order.client.UserClient;
+import com.zerobase.cms.order.client.mailgun.SendMailForm;
 import com.zerobase.cms.order.client.user.ChangeBalanceForm;
 import com.zerobase.cms.order.client.user.CustomDto;
 import com.zerobase.cms.order.domain.model.ProductItem;
 import com.zerobase.cms.order.domain.redis.Cart;
 import com.zerobase.cms.order.exception.CustomException;
 import com.zerobase.cms.order.exception.ErrorCode;
+import com.zerobase.cms.order.service.CartService;
 import com.zerobase.cms.order.service.ProductItemService;
+import com.zerobase.domain.config.JwtAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
@@ -30,16 +34,20 @@ public class OrderApplication {
     private final CartApplication cartApplication;
     private final UserClient userClient;
     private final ProductItemService productItemService;
+
+    private final JwtAuthenticationProvider provider;
+    private final MailgunClient mailgunClient;
+    private final CartService cartService;
+
     @Transactional
     public void order(String token, Cart cart){
-        // 주문을 하면 장바구니 삭제
+
         Cart orderCart = cartApplication.refreshCart(cart);
 
         // 중간에 홈페이지에 올라온 물건의 가격이나 수량이 변한 경우 에러 메세지가 있음
         if(!orderCart.getMessages().isEmpty()){
             throw new CustomException(ErrorCode.ORDER_FAIL_CHOICE_CART);
         }
-
 
         CustomDto customerInfo = userClient.getCustomerInfo(token).getBody();
 
@@ -56,9 +64,14 @@ public class OrderApplication {
         // 결제할 양식 작성
         ChangeBalanceForm form = ChangeBalanceForm.builder()
                 .from("USER")
-                .message("Order")
+                .message("ORDER")
                 .money(-totalPrice)
                 .build();
+
+        System.out.println(form.getFrom());
+        System.out.println(form.getMoney());
+        System.out.println(form.getMessage());
+
         userClient.changeBalance(token, form);
 
         //----------------------------------------------------------------------------------
@@ -72,9 +85,51 @@ public class OrderApplication {
                 productItem.setCount(productItem.getCount() - cartItem.getCount());
             }
         }
+
+        // 주문내역 이메일로 발송
+
+        String customerEmail = provider.getUserVo(token).getEmail();
+
+        System.out.println("EMAIL: "+customerEmail);
+
+        StringBuilder sb = new StringBuilder();
+
+        List<String> productName = cart.getProductList().stream().map(Cart.Product::getName).toList();
+
+        System.out.println("productName  " + productName);
+
+        List<String> productDesc = cart.getProductList().stream().map(Cart.Product::getDescription).toList();
+
+        System.out.println("productDesc  " + productDesc);
+
+        List<List<Cart.ProductItem>> productOpt = cart.getProductList().stream().map(product -> new ArrayList<>(product.getItems()).reversed()).toList();
+
+        System.out.println("productOpt  " + productDesc);
+
+        String mailText = sb.append("productName \n")
+                .append(productName.getFirst())
+                .append("productDescription \n")
+                .append(productDesc.getFirst())
+                .append("productItems \n")
+                .append(productOpt.getFirst())
+                .toString();
+
+        SendMailForm sendMailForm = SendMailForm.builder()
+                .from("zerobase-test@email.com")
+                .to(customerEmail)
+                .subject("ORDER HISTORY")
+                .text(mailText)
+                .build();
+
+        mailgunClient.sendEmail(sendMailForm);
+
+        // 주문 완료 후 카트 비우기
+        cartService.putCart(cart.getCustomerId(), null);
+
     }
 
 
+    // product 안 productItem 의 price 들의 합 구하기
     private Integer getTotalPrice(Cart cart){
 
         return cart.getProductList().stream().flatMapToInt(

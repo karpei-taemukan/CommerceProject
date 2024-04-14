@@ -38,10 +38,18 @@ public class CustomerCartController {
             @RequestHeader(name = "X-AUTH-TOKEN") String token,
             @RequestBody Cart cart
     ){
-        return ResponseEntity.ok(cartApplication.getCart(provider.getUserVo(token).getId()));
+        return ResponseEntity.ok(cartApplication.updateCart(provider.getUserVo(token).getId(), cart));
     }
 
-    @PostMapping
+    @DeleteMapping
+    public ResponseEntity<Void> deleteCart(
+            @RequestHeader(name = "X-AUTH-TOKEN") String token
+    ){
+        cartApplication.clearCart(provider.getUserVo(token).getId());
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/order")
     public ResponseEntity<Cart> order(
             @RequestHeader(name = "X-AUTH-TOKEN") String token,
             @RequestBody Cart cart

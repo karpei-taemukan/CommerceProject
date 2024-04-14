@@ -1,5 +1,6 @@
 package com.zerobase.cms.user.service;
 
+import com.zerobase.cms.order.OrderMainApplication;
 import com.zerobase.cms.order.domain.model.Product;
 import com.zerobase.cms.order.domain.model.ProductItem;
 import com.zerobase.cms.order.domain.product.AddProductForm;
@@ -28,83 +29,11 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.junit.jupiter.api.Assertions.*;
 
-/*
-@ExtendWith(MockitoExtension.class)
-//@SpringBootTest(classes = ProductService.class)
-class ProductServiceTest {
-    @InjectMocks
-    private ProductService productService;
-    @Mock
-    private ProductRepository productRepository;
 
 
-    @Test
-        void Add_Product(){
-            //given
-        List<ProductItem> productItems = new ArrayList<>();
-
-        for (int i = 0; i < 3; i++) {
-            productItems.add(
-                    ProductItem.builder()
-                            .count(1000)
-                            .id(1L)
-                            .name("NIKE"+i)
-                            .price(10000)
-                            .build()
-            );
-        }
-
-        Product product = Product.builder()
-                    .sellerId(1L)
-                    .name("NIKE")
-                    .description("Shoes")
-                    .id(1L)
-                    .productItems(productItems)
-                    .build();
-
-        given(productRepository.findWithProductItemsById(anyLong()))
-                .willReturn(Optional.of(product));
-
-        //when
-        List<AddProductItemForm> itemForms = new ArrayList<>();
-
-        for (int i = 0; i < 3; i++) {
-            itemForms.add(
-                    AddProductItemForm.builder()
-                            .productId(1L)
-                            .price(10000)
-                            .count(3)
-                            .name("NIKE"+i)
-                            .build()
-            );
-        }
-        AddProductForm form =
-                AddProductForm.builder()
-                .name("NIKE")
-                .description("Shoes")
-                .items(itemForms)
-                .build();
 
 
-        Product save = productService.addProduct(1L, form);
-        System.out.println("save: "+save);
-        Product result = productRepository.findWithProductItemsById(save.getId()).get();
-       // Product result = productRepository.findWithProductItemsById(product.getId()).get();
-        //then
-        System.out.println("result: "
-                +"\nname: "+ result.getName() + " "
-                +"\nDescription: "+ result.getDescription()+ " "
-                +"\nSellerId: "+ result.getSellerId()+ " "
-                +"\nModifiedAt: "+ result.getModifiedAt()+ " "
-                +"\nCreatedAt: "+ result.getCreatedAt() + " "
-                +"\nProductItems: "+ result.getProductItems());
-      assertNotNull(result);
-      assertEquals(result.getProductItems().size(), 3);
-      assertEquals("NIKE", result.getName());
-    }
-*/
-
-@SpringBootTest(classes = ProductService.class)
+@SpringBootTest(classes = OrderMainApplication.class)
 class ProductServiceTest {
 
     @Autowired
@@ -125,9 +54,9 @@ class ProductServiceTest {
 
 
         //then
-        //Product result = productRepository.findWithProductItemById(product.getId()).get();
+        Product result = productRepository.findWithProductItemsById(product.getId()).get();
 
-        Product result = productRepository.findById(product.getId()).get();
+        //Product result = productRepository.findById(product.getId()).get();
 
         assertNotNull(result);
     }

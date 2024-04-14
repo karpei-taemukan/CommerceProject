@@ -75,7 +75,7 @@ class CartApplicationTest {
                .build();
 
       return AddProductCartForm.builder()
-               .Id(p.getId())
+               .id(p.getId())
                .sellerId(p.getSellerId())
                .description(p.getDescription())
                .name(p.getName())
